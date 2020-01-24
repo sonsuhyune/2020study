@@ -32,7 +32,7 @@
 
 : 또, Seq2Seq는 인코더 디코더의 구조로, 그 내부는 RNN architecture를 가진다. 이전에 RNN에 대해 공부한 적이 있었지만 다시 복습하는 개념으로 함께 정리했다. 
 
-
+: 4번까지 공부 완료한 후에는 김동화의 Transformer&Bert 동영상(<https://www.youtube.com/watch?v=xhY7m8QVKjo>)으로 Transformer부분을 정리하고, Bert를 미리 한번 훑어봤다. 
 
 
 
@@ -44,3 +44,6 @@
 
 <http://www.aitimes.kr/news/articleView.html?idxno=13117>
 
+<https://www.youtube.com/watch?v=xhY7m8QVKjo>
+
+: 위의 위키독스로 이론을 보고 이 동영상을 통해 transformer부분을 정리해보면 좋을 것 같다.
