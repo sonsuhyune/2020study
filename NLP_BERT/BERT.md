@@ -8,7 +8,7 @@
 
 : 기존의 단반향 사전학습의 모델과는 달리 task를 양방향으로 사전학습하는 모델
 
-: 교육없이 양방향으로 사전 학습하는 첫 시스템
+: 교육없이 양방향으로 pre-training하는 첫 시스템
 
 : 교육없음= bert는 보통의 text corpus 만을 이용해 training이 되기때문에 막대한 양의 보통 text data 언어로 이용 가능하다는 장점을 가짐
 
@@ -47,3 +47,9 @@
 <https://www.youtube.com/watch?v=xhY7m8QVKjo>
 
 : 위의 위키독스로 이론을 보고 이 동영상을 통해 transformer부분을 정리해보면 좋을 것 같다.
+
+-BERT paper review를 준비할때 참고한 자료, 사이트
+
+  : < https://dnddnjs.github.io/nlp/2019/05/08/BERT/>
+
+  : 
