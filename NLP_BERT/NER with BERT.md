@@ -128,7 +128,7 @@ def create_model(bert_config, is_training, input_ids, input_mask,
 
 ​        : 큰 사이즈의 list형태의 data가 있을 때, 입력받은 index에 따라 lookup해서 사용
 
-
+.
 
 ```python
  output_layer = model.get_sequence_output()
@@ -140,7 +140,7 @@ def create_model(bert_config, is_training, input_ids, input_mask,
 
 ​     : 여기서 나온 layer는 BERT를 거치고 나온 layer
 
-
+.
 
 ```
 hidden_size = output_layer.shape[-1].value
@@ -150,7 +150,7 @@ hidden_size = output_layer.shape[-1].value
 
 ​     : 크기 [batch_size, seq_length, hidden_size]
 
-
+.
 
 ```
 output_weight = tf.get_variable(
@@ -165,7 +165,7 @@ output_weight = tf.get_variable(
 
 ​     : initializer-표준편차로 정규분포에서 초기화
 
-
+.
 
 ```
 output_bias = tf.get_variable(
@@ -179,7 +179,7 @@ output_bias = tf.get_variable(
 
 ​       : initializer-zero로 초기화
 
-
+.
 
 ```python
 with tf.variable_scope("loss"):
@@ -189,7 +189,7 @@ with tf.variable_scope("loss"):
 
 ▶ **training이면 output layer에 dropout을 해준다**
 
-
+.
 
 ```
 output_layer = tf.reshape(output_layer, [-1, hidden_size])
@@ -203,7 +203,7 @@ output_layer = tf.reshape(output_layer, [-1, hidden_size])
 
 ​      : 밑에서 **W와 곱하기 위해** 차원 변경을 목적으로
 
-
+.
 
 ```
 logits = tf.matmul(output_layer, output_weight, transpose_b=True)
@@ -215,7 +215,7 @@ logits = tf.matmul(output_layer, output_weight, transpose_b=True)
 
 ​      : W의 크기 [num_labels, hidden_size]
 
-
+.
 
 ```
 logits = tf.nn.bias_add(logits, output_bias)
@@ -223,7 +223,7 @@ logits = tf.nn.bias_add(logits, output_bias)
 
 ▶ **weight를 곱한 결과에 bias를 더해준다**
 
-
+.
 
 ```python
 logits = tf.reshape(logits, [-1, FLAGS.max_seq_length, 7])
@@ -235,7 +235,7 @@ logits = tf.reshape(logits, [-1, FLAGS.max_seq_length, 7])
 
 ​    : 결국 W를 곱하기 전에 reshape을 해줬던 과정 직전의 차원과 같아 진다
 
-
+.
 
 ```
 log_probs = tf.nn.log_softmax(logits, axis=-1)
@@ -245,7 +245,7 @@ log_probs = tf.nn.log_softmax(logits, axis=-1)
 
 ​     : 구하기 위해 위의 logits에 log_softmax
 
-
+.
 
 ```
 one_hot_labels = tf.one_hot(labels, depth=num_labels, dtype=tf.float32)
@@ -255,7 +255,7 @@ one_hot_labels = tf.one_hot(labels, depth=num_labels, dtype=tf.float32)
 
 ​      : 여기서  labels = ['B','I','O','CLS','SEP','X']
 
-
+.
 
 ```
 per_example_loss = -tf.reduce_sum(one_hot_labels * log_probs, axis=-1)
@@ -265,7 +265,7 @@ per_example_loss = -tf.reduce_sum(one_hot_labels * log_probs, axis=-1)
 
 ​     : 여기서 example = 각 Token
 
-
+.
 
 ```
 loss = tf.reduce_sum(per_example_loss)
@@ -277,13 +277,17 @@ predict = tf.argmax(probabilities,axis=-1)
 
 ​     : softmax값을 취한 것에서 max값이 예측값! 
 
-
+.
 
 #### output_layer가 변경되는 과정
+
+.
 
 ![image-20200131184216377](C:\Users\SAMSUNG\AppData\Roaming\Typora\typora-user-images\image-20200131184216377.png)
 
 
+
+.
 
 ### 참고자료
 
