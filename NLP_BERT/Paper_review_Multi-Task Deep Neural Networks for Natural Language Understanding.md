@@ -1,5 +1,7 @@
 ## Multi-Task Deep Neural Networks for Natural Language Understanding
 
+- 2019년 MS에서 발표한 논문인, MT-DNN 논문 리뷰 겸 정리
+
 - 아래 사이트를 참고하여 작성하였습니다.
 
   https://y-rok.github.io/nlp/2019/05/20/mt-dnn.html#3-model-architecture--training 
@@ -12,15 +14,23 @@
 
   : 다양한 Task의 Supervised Dataset을 모두 사용하여 대용량 데이터 학습
 
-  : Multi-task learning을 통해 특정 Task에 Overfitting되지 않도록 Regularization
+  : Multi-task learning을 통해 특정 Task에 Overfitting되지 않도록 Regularization 
+
+   --> Domain adaptation
 
   : [8개의 GLUE Task, Domain Adaptation] 에서 State-of-the-Art 성능
 
-​    (Fine tuning 데이터가 적을 때에도 Classification정확도가 꽤 높음)
+​    (Fine tuning시, 데이터가 적을 때에도 Classification정확도가 꽤 높음)
 
   : **BERT보다 더 높은 성능**
 
+  : SNLI, SciTail dataset을 사용하여 MT-DNN에서 학습된 representation이 pre-trained BERT model보다   
 
+   **domain adaptation**을 더 잘 수행한다.
+
+
+
+### 1. Introduction
 
 #### 자연어에서 Language representation
 
@@ -40,21 +50,61 @@
 
   ​    : 어떤 Task에서의 학습효과가 다른 Task의 성능에 영향을 미칠 것이라는 가정
 
+   <u>--> MT-DNN에서는 이 두가지 방식을 combine하여 사용했다.</u>
+
 
 
 #### Multi-task learning
 
-- Supervised Task를 1개의 모델을 통해 학습
+  : 이전 task에서 배운 지식이 새로운 task를 학습할때 도움을 주는 인간 학습 활동에서 영감을 얻음
 
-  : GLUE의 9개 Task 활용
+  : 한 task에서 학습한 지식이 다른 task에 유익하게 하기 위해 **multiple task를 동시에 학습**
 
-- Multi-Task Learning의 이점
+  : 그래서, 최근에는 <u>DNN에 이러한 Multi task learning을 적용</u>시키는 것에 관심 多    
 
-  1. 대용량 Supervised Dataset을 활용하여 학습가능
+- 관심이 많아진 이유 2가지
 
-     : Supervised Dataset은 Task에 따라 데이터가 적을 경우, 성능이 상당히 저하되지만, Multi-task learning 시 이러한 데이터를 모두 합쳐서 활용 가능
+  1. supervised learning은 많은 양의 task-specific한 labeled data가 필요하다. (Supervised Dataset은 Task에 따라 데이터가 적을 경우, 성능이 상당히 저하된다.)
 
-  2. 모델이 특정 Task에 Overfitting되지 않도록 Regularization 효과를 줄 수 있음
+     하지만 이 데이터들도 항상 이용할 수 있는 건 아님
+
+     --> MTL은 연관되어 있는 **task들의 supervised data를 효과적으로 활용할 수 있는 방법**을 제공
+
+  2. 모델이 특정 **Task에 Overfitting되지 않도록 Regularization 효과**를 줄 수 있음
+
+
+
+#### language model pretraining
+
+  : 많은 양의 unlabeled data를 활용하여 보편적인 language representation을 배우는데 효과적
+
+  : BERT, ELMo, GPT 같은 model
+
+  : unsupervised objective를 이용하여 text data를 train한 model
+
+  : ex) BERT - multi layer bidirectional Transformer를 기반으로, MLM과 NSP task를 위해 훈련된다
+
+  : 특정 NLU Task를 하려면, 각 task 별로 fine-tuning을 진행
+
+​    각 task specific한 layer를 추가적으로 붙여서 task specific한 training data로 fine tuning을 진행
+
+
+
+#### MTL, Language model pretraining
+
+  : MTL과 LMP는 상호 보완적인 기술
+
+  : 이 둘을 combine하여 다양한 NLU task
+
+  : 이를 위해, **BERT를 shared text encoding layer로 사용**
+
+  : 둘을 합치 모델 layer - Figure 1
+
+![img](https://y-rok.github.io/assets/img/Untitled-5daa626f-1b42-4f5b-818e-eb6bbe294093.png)
+
+  : BERT 모델처럼 MT-DNN은 fine-tuning을 통해 특정 task에 적용할 수 있다
+
+  : MT-DNN은 BERT와는 달리, pretraining할때 MTL을 사용하였다.
 
 
 
