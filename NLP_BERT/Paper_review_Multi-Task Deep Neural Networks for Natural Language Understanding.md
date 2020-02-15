@@ -108,39 +108,43 @@
 
 
 
+### 2. Tasks
+
 #### GLUE Task
 
-- Single Sentence Classification
+: 총 9개의 NLU task 중 8개에 대한 SOTA - 82.7%로 올렸고, BERT보다 2.2%정도 더 높음
+
+- **Single Sentence Classification**
 
   : 하나의 문장이 Input으로 주어졌을 때, Class를 분류하는 Task
 
-  : CoLA - 문장이 문법적으로 맞는지 아닌지 (True/False)  
+  : <u>CoLA</u> - 문장이 문법적으로 맞는지 아닌지 (True/False)  
 
-  : SST-2 - 영화 Review 문장의 감정 분류 (Positive/Negative)
+  : <u>SST-2</u> - 영화 Review 문장의 감정 분류 (Positive/Negative)
 
-- Text Similarity
+- **Text Similarity**
 
   : 문장 쌍이 주어졌을 때, 점수를 예측하는 Regression Task
 
-  : STS-B = 문장간의 의미적 유사도를 점수로 예측
+  : <u>STS-B</u> = 문장간의 의미적 유사도를 점수로 예측
 
-- Pairwise Text Classification
+- **Pairwise Text Classification**
 
   : 문장 쌍이 주어졌을 때, 문장의 관계를 분류하는 Task
 
-  : RTE, MNLI - 문장간의 의미적 관계를 3가지로 분류
+  : <u>RTE</u>, <u>MNLI</u> - 문장간의 의미적 관계를 3가지로 분류
 
   ​                        (Entailment, Contradiction, Neutral)
 
-  : QQP, MRPC - 문장간의 의미가 같은지 아닌지 
+  : <u>QQP</u>, <u>MRPC</u> - 문장간의 의미가 같은지 아닌지 
 
   ​                        (True, False)
 
-- Relevance Ranking
+- **Relevance Ranking**
 
   : 질문 문장과 지문이 주어졌을때, 지문 중 정답이 있는 문장을 Ranking을 통해 찾는 Task
 
-  : QNLI-질문, 지문 중 한 문장이 쌍으로 주어졌을 때 해당 지문 문장에 질문의 답이 있는지
+  : <u>QNLI</u>-질문, 지문 중 한 문장이 쌍으로 주어졌을 때 해당 지문 문장에 질문의 답이 있는지
 
   * **MT-DNN**에서는 이를 **Rank**방식으로
 
@@ -148,3 +152,83 @@
 
  
 
+### 3. The Proposed MT-DNN Model
+
+![img](https://y-rok.github.io/assets/img/Untitled-5daa626f-1b42-4f5b-818e-eb6bbe294093.png)
+
+-  **Lower layer** 
+
+  : Shared layer
+
+  : 모든 task가 share하는 layer
+
+  - **Lexicon Encoder**
+
+    : input X을 embedding vector의 sequence로 나타내는 layer
+
+  - **Transformer encoder**
+
+    : self attention을 통해 각 word에 대한 contextual information을 capture
+
+    : **shared contextual embedding vector**를 만드는 layer
+
+     (이 vector는 multi-task object에 의해 훈련된 <u>shared semantic representation</u>이다.)
+
+  
+
+- **top layer**
+
+  : task specific한 output을 represent하는 layer
+
+
+
+#### 이제 각 layer에 대해 더 자세히 
+
+- **Lexicon Encoder**
+
+  - input X : 길이가 m인 token들의 sequence ([CLS],[SEP],[SEP] token 포함하고 있는)
+
+  - X를 각 token에 대해 input embedding, segment(token) embedding, positional encoding 한 후,
+
+    embedding vector의 sequence로 나타내는 layer
+
+
+
+- **Transformer Encoder**
+  
+  - lexicon Encoder에서 나온 input representation vector를 contextual embedding vector C의 sequence로 map
+  
+  - mapping하기 위해 multi layer bidirectional Transformer encoder를 사용
+  
+  - **<u>contextual embedding vector = task들 간의 shared representation</u>** 
+  
+  - BERT는 pretraining을 통해 representation을 학습하지만, **MT-DNN은 pretraining+mtl로 representation을 학습**
+  
+    
+
+- **Single-Sentence Classification Output**
+
+  - x=token [CLS]의 contextual embedding
+
+  ​         = input sentence X의 semantic representation을 볼 수 있는
+
+  - SST-2의 경우, X가 class c에 labeled 일 확률은 softmax를 통해
+
+    ![1_func](/img/1_func.PNG)
+
+
+
+- **Text Similarity Output**
+
+  - STS-B task : 문장간의 의미적 유사도를 점수로 예측
+
+  - x= token [CLS]의 contextual embedding
+
+      = input sentence pair(X1,X2)의 semantic representation을 볼 수 있는
+
+    ![](img\2_func.PNG)
+
+
+
+- Pairwisw Text Classification Output
+  - edxxxgvcxs
