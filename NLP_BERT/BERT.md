@@ -24,7 +24,7 @@
 4. transformer 
 5. BERT
 
-: 이렇게 정한 이유는, 일단 BERT는 Transformer를 기반으로 한다.
+: 이렇게 정한 이유는, 일단 BERT는 Transformer를 기반으로 하기때문이다.
 
 : Transformer는 Seq2Seq의 한계*(인코더에서 압축하는 과정에서 sequence의 일부가 손실)*를 보정하기 위해 Attention을 이용하여 인코더-디코더를 만든 것이다.
 
