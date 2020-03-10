@@ -12,7 +12,7 @@
 
 : 교육없음= bert는 보통의 text corpus 만을 이용해 training이 되기때문에 막대한 양의 보통 text data 언어로 이용 가능하다는 장점을 가짐
 
-: BERT의 자세한 부분은 추후에 논문을 분석해서 추가로 올릴 예정이다
+: BERT의 자세한 부분은 추후에 논문을 분석해서 추가로 올릴 예정이다 (올림!)
 
 
 
@@ -23,6 +23,7 @@
 3. Attention
 4. transformer 
 5. BERT
+6. MTDNN
 
 : 이렇게 정한 이유는, 일단 BERT는 Transformer를 기반으로 하기때문이다.
 
@@ -34,9 +35,10 @@
 
 : 4번까지 공부 완료한 후에는 김동화의 Transformer&Bert 동영상(<https://www.youtube.com/watch?v=xhY7m8QVKjo>)으로 Transformer부분을 정리하고, Bert를 미리 한번 훑어봤다. 
 
+: BERT의 구조를 이용하여 Multi task를 한 MTDNN 모델에 대한 공부를 진행중이다.
 
 
-#### 참고 (2020.01.23 기준)
+#### 참고 (2020.03.10 기준)
 
 <https://wikidocs.net/book/2155> : 위키독스-딥러닝을 이용한 자연어 처리 입문
 
