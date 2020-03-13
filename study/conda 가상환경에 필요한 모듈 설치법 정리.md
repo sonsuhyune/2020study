@@ -38,7 +38,7 @@
    python -m ipykernel install --user --name pytorch --display-name "PyTorch"
    ```
 
-
+--> 잘 안됨ㅠ
 
 
 
