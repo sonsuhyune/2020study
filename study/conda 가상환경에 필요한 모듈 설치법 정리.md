@@ -88,7 +88,7 @@ from torchtext import data, datasets --> 잘 된 다 ! ! !
 
 ---------------------------------------------------------------------------------------------
 
-4. ignite
+4. **ignite**
 
    ```
    conda install -c pytorch ignite
@@ -96,6 +96,8 @@ from torchtext import data, datasets --> 잘 된 다 ! ! !
 
     [from ignite.engine import Engine, Events
      ModuleNotFoundError: No module named 'ignite'] --> 위의 명령어로 이 오류는 해결됨!
+
+
 
 
 
