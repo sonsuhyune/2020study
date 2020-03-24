@@ -101,3 +101,10 @@ from torchtext import data, datasets --> 잘 된 다 ! ! !
 
 
 
+5. nltk
+
+   ```
+   conda install -c anaconda nltk
+   ```
+
+   
