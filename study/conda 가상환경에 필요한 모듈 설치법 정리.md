@@ -110,3 +110,16 @@ from torchtext import data, datasets --> 잘 된 다 ! ! !
 6. anaconda-jupyter
 
    `conda install -c conda-forge notebook`
+
+   ```
+   conda install -c conda-forge jupyter_core
+   ```
+
+7. anaconda-lab
+
+   ```
+   conda install -c conda-forge jupyterlab
+   ```
+
+   : 이거 안하면 jupyter notebook에서 ipynb파일을 만들었을때 kernel error가 뜬다.
+
