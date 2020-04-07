@@ -107,4 +107,6 @@ from torchtext import data, datasets --> 잘 된 다 ! ! !
    conda install -c anaconda nltk
    ```
 
-   
+6. anaconda-jupyter
+
+   `conda install -c conda-forge notebook`
