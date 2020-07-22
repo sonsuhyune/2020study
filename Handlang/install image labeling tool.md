@@ -36,6 +36,4 @@
 
    `python labelImg.py`
 
-   ![image-20200122150442306](C:\Users\CSE_123\AppData\Roaming\Typora\typora-user-images\image-20200122150442306.png)
-
---> 그럼 이런 tool이 뜬다!
+   
